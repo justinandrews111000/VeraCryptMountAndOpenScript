@@ -23,6 +23,7 @@ while (-not $success) {
     $passwordPlainText = Get-PlainTextPassword
 
     # Mount the container
+    Write-Host "Please wait while we check if the password is correct. This can take 30s or more..."
     $process = Start-Process -FilePath $veracryptPath -ArgumentList "/v `"$containerPath`" /l $driveLetter /p `"$passwordPlainText`" /q /s /m rm" -NoNewWindow -Wait -PassThru
 
     # Clear the plain text password from memory
