@@ -35,6 +35,17 @@ while (-not $success) {
 
         # Open the mounted drive in File Explorer
         Start-Process explorer.exe $driveLetter
+                # Wait for the user to press Enter to unmount
+        Read-Host -Prompt "Press Enter to unmount the VeraCrypt container"
+
+        # Unmount the container
+        $unmountProcess = Start-Process -FilePath $veracryptPath -ArgumentList "/d $driveLetter /q /s" -NoNewWindow -Wait -PassThru
+
+        if ($unmountProcess.ExitCode -eq 0) {
+            Write-Host "VeraCrypt container unmounted successfully."
+        } else {
+            Write-Host "Failed to unmount the VeraCrypt container."
+        }
     } else {
         Write-Host "Failed to mount the VeraCrypt container. Please try again."
     }
